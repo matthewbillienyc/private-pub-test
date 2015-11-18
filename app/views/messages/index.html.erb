@@ -1,14 +1,28 @@
-<div id="wrapper">
-  <div id='container'>
-    <ul>
-      <%= render @messages %>
-    </ul>
-  </div>
-  <div id='message'>
-    <%= form_for Message.new, remote: true, html: {id: 'chatbox'} do |f| %>
-      <%= f.text_field :content %>
-      <%= f.submit 'Send' %>
-    <% end %>
+<div style="width: 60%; float:left">
+</div>
+
+<div style="width: 40%; float:right">
+  <div id="wrapper">
+      <ul id='chat'>
+        <%= render @messages %>
+      </ul>
+    <div id='message'>
+      <%= form_for Message.new, remote: true, html: {id: 'chatbox'} do |f| %>
+        <%= f.text_field :content %>
+        <%= f.submit 'Send' %>
+      <% end %>
+    </div>
+    <div id='player-select'>
+      <h3>Select Player</h3>
+      <ul>
+        <li>
+          <button>P 1</button>
+        </li><br>
+        <li>
+          <button>P 2</button>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 <%= subscribe_to "/messages/new" %>
