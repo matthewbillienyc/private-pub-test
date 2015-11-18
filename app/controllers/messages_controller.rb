@@ -10,6 +10,9 @@ class MessagesController < ApplicationController
     PrivatePub.publish_to "/messages/new", :chat_message => message_partial
   end
 
+  def pong
+  end
+
   private
 
     def message_params

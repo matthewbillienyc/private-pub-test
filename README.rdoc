@@ -30,3 +30,5 @@ Please feel free to use a different markup language if you do not plan to run
 rackup private_pub.ru -s thin -E production
 thin -C config/private_pub_thin.yml start
 rails s
+
+Matthew Billie and Howon Cheng
