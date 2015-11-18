@@ -62,7 +62,7 @@ $(function(){
     this.y = y;
     this.width = width;
     this.height = height;
-    this.x_speed = 5;
+    this.x_speed = 0;
     this.y_speed = 0;
   }
 
@@ -86,22 +86,70 @@ $(function(){
     e.stopPropagation();
   });
 
-  $(document).on('keydown', function(e){
-    var code = e.which;
-    if(code == 87) {
-      paddle1.y_speed = -2;
-    } else if(code == 83) {
-      paddle1.y_speed = 2;
-    }
-  });
+  // $(document).on('keydown', function(e){
+  //   var code = e.which;
+  //   if(code == 87) {
+  //     paddle1.y_speed = -2;
+  //   } else if(code == 83) {
+  //     paddle1.y_speed = 2;
+  //   }
+  // });
+
+  // $(document).on('keydown', function(e){
+  //   e.preventDefault();
+  //   var code = e.which;
+  //   if(code == 38) {
+  //     paddle2.y_speed = -2;
+  //   } else if(code == 40) {
+  //     paddle2.y_speed = 2;
+  //   }
+  // });
 
   $(document).on('keydown', function(e){
     var code = e.which;
-    if(code == 38) {
-      paddle2.y_speed = -2;
-    } else if(code == 40) {
-      paddle2.y_speed = 2;
+    if(code == 87) {
+      $.post("/p1up", function(){});
+    } else if(code == 83) {
+      $.post("/p1down", function(){});
     }
+  });
+
+  PrivatePub.subscribe("/p1up", function() {
+    paddle1.y_speed = -2;
+  });
+
+  PrivatePub.subscribe("/p1down", function() {
+    paddle1.y_speed = 2;
+  });
+
+  $(document).on('keydown', function(e){
+    e.preventDefault();
+    var code = e.which;
+    if(code == 38) {
+      $.post("/p2up", function(){});
+    } else if(code == 40) {
+      $.post("/p2down", function(){});
+    }
+  });
+
+  PrivatePub.subscribe("/p2up", function() {
+    paddle2.y_speed = -2;
+  });
+
+  PrivatePub.subscribe("/p2down", function() {
+    paddle2.y_speed = 2;
+  });
+
+  $(document).on('keydown', function(e){
+    e.preventDefault();
+    var code = e.which;
+    if(code == 32) {
+      $.post("/space", function(){});
+    }
+  });
+
+  PrivatePub.subscribe("/space", function() {
+    ball.x_speed = 5;
   });
 
   document.body.appendChild(canvas);
