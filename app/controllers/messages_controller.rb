@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
 
   def index
-    @messages = Message.all
+    @messages = Message.display_latest_messages
   end
 
   def create

@@ -32,3 +32,7 @@ thin -C config/private_pub_thin.yml start
 rails s
 
 Matthew Billie and Howon Cheng
+
+todos - flatiron pong javascript
+todos - chatbox display/clearing
+
