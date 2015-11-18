@@ -1,0 +1,3 @@
+port: 4443
+environment: production
+rackup: private_pub.ru
