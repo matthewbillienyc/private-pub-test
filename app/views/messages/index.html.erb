@@ -1,0 +1,14 @@
+<div id='container'>
+  <ul>
+    <%= render @messages %>
+  </ul>
+</div>
+<div id='message'>
+  <%= form_for Message.new, remote: true, html: {id: 'chatbox'} do |f| %>
+    <%= f.text_field :content %>
+    <%= f.submit 'Send' %>
+  <% end %>
+</div>
+
+
+
