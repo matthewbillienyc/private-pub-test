@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
   def create
     @message = Message.create(message_params)
     message_partial = render_to_string(partial: '/messages/message', locals: {message: @message})
-    render json: {message_partial: message_partial}
+    PrivatePub.publish_to "/messages/new", :chat_message => message_partial
   end
 
   private

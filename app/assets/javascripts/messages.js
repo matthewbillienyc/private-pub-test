@@ -1,7 +1,8 @@
 $(function(){
 
-  $("#chatbox").on('ajax:success', function(e, data, success, xhr){
-    $("ul").append(data.message_partial);
+  
+  PrivatePub.subscribe("/messages/new", function(data, channel) {
+    $("ul").append(data.chat_message);
   });
-
-});
+  
+})
