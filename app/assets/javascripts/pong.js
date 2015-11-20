@@ -42,6 +42,7 @@ $(function(){
     this.height = height;
     this.x_speed = 0;
     this.y_speed = 0;
+    this.score = 0;
   }
 
   Paddle.prototype.render = function() {
@@ -50,11 +51,11 @@ $(function(){
   };
 
   Paddle.prototype.update = function() {
-    this.y += this.y_speed; 
+    if ((this.y_speed == -2 && this.y == 0) || (this.y_speed == 2 && this.y == 350)) {
+      this.y_speed = 0;
+    }
 
-    // if (this.y == 0 || this.y == 350) {
-    //   this.y_speed = 0;
-    // }
+    this.y += this.y_speed; 
   };
 
   function Ball(x, y, width, height) {
@@ -65,20 +66,48 @@ $(function(){
     this.x_speed = 0;
     this.y_speed = 0;
   }
-
+  Ball.prototype.reset = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.x_speed = 0;
+    this.y_speed = 0;
+  }
   Ball.prototype.render = function() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
   Ball.prototype.update = function() {
-    this.x += this.x_speed;
-    this.y += this.y_speed;
+    if(this.x < 2) {
+      this.reset(300,200);
+      paddle2.score++;
+    } else if(this.x > 598) {
+      this.reset(300,200);
+      paddle1.score++;
+    }
+    // Check for not full collision
+    else if(this.x + this.x_speed < paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
+      // debugger;
+      this.x = paddle1.x+15;
+    } else if(this.x + this.x_speed > paddle2.x && this.x_speed > 0 && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
+      // debugger;
+      this.x = paddle2.x-5;
+    } else {
+      this.x += this.x_speed;
+      this.y += this.y_speed;
+    }
+    
 
+    // Check paddle collision
     if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
       this.x_speed = this.x_speed * -1;
     } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
       this.x_speed = this.x_speed * -1;
+    }
+
+    // Check Wall collision
+    if(this.y == 0 || this.y == 395){
+      this.y_speed = this.y_speed * -1;
     }
   };
 
@@ -115,11 +144,15 @@ $(function(){
   });
 
   PrivatePub.subscribe("/p1up", function() {
-    paddle1.y_speed = -2;
+    if(paddle1.y > 0) {
+      paddle1.y_speed = -2;
+    }
   });
 
   PrivatePub.subscribe("/p1down", function() {
-    paddle1.y_speed = 2;
+    if(paddle1.y < 350) {
+      paddle1.y_speed = 2;
+    }
   });
 
   $(document).on('keydown', function(e){
@@ -133,11 +166,15 @@ $(function(){
   });
 
   PrivatePub.subscribe("/p2up", function() {
-    paddle2.y_speed = -2;
+    if(paddle2.y > 0) {
+      paddle2.y_speed = -2;
+    }
   });
 
   PrivatePub.subscribe("/p2down", function() {
-    paddle2.y_speed = 2;
+    if(paddle2.y < 350) {
+      paddle2.y_speed = 2;
+    }
   });
 
   $(document).on('keydown', function(e){
@@ -149,7 +186,10 @@ $(function(){
   });
 
   PrivatePub.subscribe("/space", function() {
-    ball.x_speed = 5;
+    if(ball.x_speed == 0){
+      ball.x_speed = 3;
+      ball.y_speed = 1;
+    }
   });
 
   document.body.appendChild(canvas);
