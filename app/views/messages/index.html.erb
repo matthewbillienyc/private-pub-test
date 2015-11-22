@@ -1,29 +1,44 @@
-<div style="width: 60%; float:left">
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8">
+      <div class="jumbotron">
+        <div id="pong">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="jumbotron">
+        <div class="chat">
+          <p>
 
-<div style="width: 40%; float:right">
-  <div id="wrapper">
-      <ul id='chat'>
-        <%= render @messages %>
-      </ul>
-    <div id='message'>
-      <%= form_for Message.new, remote: true, html: {id: 'chatbox'} do |f| %>
-        <%= f.text_field :content %>
-        <%= f.submit 'Send' %>
-      <% end %>
+          </p>
+          <ul id='chat'>
+          </ul>
+        </div>
+        <div id='message'>
+          <form id='chatbox' action='/messages' method='post' data-remote='true'>
+            <label>Enter name:</label><br>
+            <input id='player-name' type='text' name='player'>
+            <input id='message_content' type='text' name='content'>
+            <input type='submit' value='Send'>
+          </form>
+        </div><br>
+        <div id='player-select'>
+          <label>Select Player:</label><br>
+          <form action='/p1select' method='post' data-remote='true'>
+            <button id="p1select" style="margin-right:10px;">P 1</button>
+          </form>
+          <form action='/p2select' method='post' data-remote='true'>
+            <button id="p2select">P 2</button><br>
+          </form>
+          <label>Start Game:</label><br>
+          <form id='start' action='/start' method='post' data-remote='true'>
+            <button id='start'>Start Game</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <div id='player-select'>
-      <h3>Select Player</h3>
-      <ul>
-        <li>
-          <button>P 1</button>
-        </li><br>
-        <li>
-          <button>P 2</button>
-        </li>
-      </ul>
-    </div>
-  </div>
+  </div>  
 </div>
 <%= subscribe_to "/messages/new" %>
 <%= subscribe_to "/p1up" %>
@@ -31,3 +46,6 @@
 <%= subscribe_to "/p2up" %>
 <%= subscribe_to "/p2down" %>
 <%= subscribe_to "/space" %>
+<%= subscribe_to "/start" %>
+<%= subscribe_to "/p1select" %>
+<%= subscribe_to "/p2select" %>

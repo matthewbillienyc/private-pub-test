@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   post '/p2up' => 'pongs#p2up'
   post '/p2down' => 'pongs#p2down'
   post '/space' => 'pongs#space'
+  post '/start' => 'pongs#start'
+  post '/p1select' => 'pongs#p1select'
+  post '/p2select' => 'pongs#p2select'
 end
