@@ -48,10 +48,19 @@ $(function(){
   Paddle.prototype.render = function() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    if(this.x == 10){
+      ctx.font-size="30px";
+      ctx.fillText(this.score, 150, 10);
+    } else{
+      ctx.font-size="30px";
+      ctx.fillText(this.score, 450, 10);
+    }
+    
   };
 
   Paddle.prototype.update = function() {
-    if ((this.y_speed == -2 && this.y == 0) || (this.y_speed == 2 && this.y == 350)) {
+    if ((this.y_speed < 0 && this.y == 0) || (this.y_speed > 0 && this.y == 350)) {
       this.y_speed = 0;
     }
 
@@ -86,29 +95,52 @@ $(function(){
       paddle1.score++;
     }
     // Check for not full collision
-    else if(this.x + this.x_speed < paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
+    else if(this.x + this.x_speed < paddle1.x && this.x > paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
       // debugger;
-      this.x = paddle1.x+15;
-    } else if(this.x + this.x_speed > paddle2.x && this.x_speed > 0 && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
+      this.x = paddle1.x+10;
+    } else if(this.x + this.x_speed > paddle2.x && this.x < paddle2.x && this.x_speed > 0 && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
       // debugger;
       this.x = paddle2.x-5;
     } else {
       this.x += this.x_speed;
       this.y += this.y_speed;
     }
-    
 
     // Check paddle collision
-    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
+    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/2)) {
       this.x_speed = this.x_speed * -1;
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
+      if(this.y_speed > -5){
+        this.y_speed -= 1;
+      }
+    }
+    else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height) {
       this.x_speed = this.x_speed * -1;
+      if(this.y_speed < 5){
+        this.y_speed += 1;
+      }
+    }
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/2)) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed > -5){
+        this.y_speed -= 1;
+      }
+    }
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed < 5){
+        this.y_speed += 1;
+      }
     }
 
     // Check Wall collision
-    if(this.y == 0 || this.y == 395){
+    if(this.y <=0){
+      this.y = 0;
+      this.y_speed = this.y_speed * -1;
+    } else if(this.y >= 395){
+      this.y = 395;
       this.y_speed = this.y_speed * -1;
     }
+    console.log(this.y_speed);
   };
 
   $('#message_content').on('keydown', function(e) {
@@ -133,7 +165,7 @@ $(function(){
   //     paddle2.y_speed = 2;
   //   }
   // });
-
+  
   $(document).on('keydown', function(e){
     var code = e.which;
     if(code == 87) {
@@ -145,13 +177,13 @@ $(function(){
 
   PrivatePub.subscribe("/p1up", function() {
     if(paddle1.y > 0) {
-      paddle1.y_speed = -2;
+      paddle1.y_speed = -2.5;
     }
   });
 
   PrivatePub.subscribe("/p1down", function() {
     if(paddle1.y < 350) {
-      paddle1.y_speed = 2;
+      paddle1.y_speed = 2.5;
     }
   });
 
@@ -167,13 +199,13 @@ $(function(){
 
   PrivatePub.subscribe("/p2up", function() {
     if(paddle2.y > 0) {
-      paddle2.y_speed = -2;
+      paddle2.y_speed = -2.5;
     }
   });
 
   PrivatePub.subscribe("/p2down", function() {
     if(paddle2.y < 350) {
-      paddle2.y_speed = 2;
+      paddle2.y_speed = 2.5;
     }
   });
 
@@ -187,8 +219,8 @@ $(function(){
 
   PrivatePub.subscribe("/space", function() {
     if(ball.x_speed == 0){
-      ball.x_speed = 3;
-      ball.y_speed = 1;
+      ball.x_speed = [-3, 3][Math.floor(Math.random() * 2)];
+      ball.y_speed = Math.floor(Math.random() * (1 + 1 + 1)) - 1;
     }
   });
 
