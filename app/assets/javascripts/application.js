@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require private_pub
+//= require united
 //= require_directory .
 

@@ -1,11 +1,12 @@
 $(function(){
 
+  var p1select = false;
+  var p2select = false;
   var animate = window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
     function(callback) { window.setTimeout(callback, 1000/60) };
-
-  var canvas = document.createElement('canvas');
+  var canvas =  document.createElement('canvas');
   var width = 600;
   var height = 400;
   canvas.width = width;
@@ -111,7 +112,7 @@ $(function(){
     }
   };
 
-  $('#message_content').on('keydown', function(e) {
+  $('#message_content, #player-name').on('keydown', function(e) {
     e.stopPropagation();
   });
 
@@ -133,14 +134,15 @@ $(function(){
   //     paddle2.y_speed = 2;
   //   }
   // });
-
-  $(document).on('keydown', function(e){
-    var code = e.which;
-    if(code == 87) {
-      $.post("/p1up", function(){});
-    } else if(code == 83) {
-      $.post("/p1down", function(){});
-    }
+  $('#p1select').on('click', function(){
+    $(document).on('keydown', function(e){
+      var code = e.which;
+      if(code == 38) {
+        $.post("/p1up", function(){});
+      } else if(code == 40) {
+        $.post("/p1down", function(){});
+      }
+    });
   });
 
   PrivatePub.subscribe("/p1up", function() {
@@ -155,14 +157,16 @@ $(function(){
     }
   });
 
-  $(document).on('keydown', function(e){
-    e.preventDefault();
-    var code = e.which;
-    if(code == 38) {
-      $.post("/p2up", function(){});
-    } else if(code == 40) {
-      $.post("/p2down", function(){});
-    }
+  $('#p2select').on('click', function(){
+    $(document).on('keydown', function(e){
+      e.preventDefault();
+      var code = e.which;
+      if(code == 38) {
+        $.post("/p2up", function(){});
+      } else if(code == 40) {
+        $.post("/p2down", function(){});
+      }
+    });
   });
 
   PrivatePub.subscribe("/p2up", function() {
@@ -177,14 +181,6 @@ $(function(){
     }
   });
 
-  $(document).on('keydown', function(e){
-    e.preventDefault();
-    var code = e.which;
-    if(code == 32) {
-      $.post("/space", function(){});
-    }
-  });
-
   PrivatePub.subscribe("/space", function() {
     if(ball.x_speed == 0){
       ball.x_speed = 3;
@@ -192,9 +188,32 @@ $(function(){
     }
   });
 
-  document.body.appendChild(canvas);
-  animate(step);
+  $('#pong').append(canvas);
+  ctx.font="35px Arial";
+  ctx.fillText("Welcome to Trash Talking Pong!", 65, 200)
 
+  PrivatePub.subscribe("/start", function() {
+    if (p1select && p2select) { 
+      $(document).on('keydown', function(e){
+        e.preventDefault();
+        var code = e.which;
+        if(code == 32) {
+          $.post("/space", function(){});
+        }
+      });
+      animate(step);
+    }
+  });
+
+  PrivatePub.subscribe("/p1select", function(){
+    $('#p1select').hide();
+    p1select = true;
+  });
+
+  PrivatePub.subscribe("/p2select", function(){
+    $('#p2select').hide();
+    p2select = true;
+  });
 
 })
 

@@ -23,4 +23,20 @@ class PongsController < ApplicationController
     PrivatePub.publish_to "/space", {}
     render nothing: true
   end
+
+  def start
+    PrivatePub.publish_to "/start", {}
+    render nothing: true
+  end
+
+  def p1select
+    PrivatePub.publish_to "/p1select", {}
+    render nothing: true
+  end
+
+  def p2select
+    PrivatePub.publish_to "/p2select", {}
+    render nothing: true
+  end
+
 end
