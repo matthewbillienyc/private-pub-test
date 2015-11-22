@@ -38,7 +38,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
  <<: *default
- database: db/trash-talking-pong_test
+ database: db/trash-talking-pong_test_test
 
 production:
  url: <%= ENV["DATABASE_URL"] %>
+ database: db/trash-talking-pong_test
