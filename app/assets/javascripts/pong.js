@@ -209,7 +209,8 @@ $(function(){
         $.post("/p1down", function(){});
       }
     });
-
+  });
+  
   PrivatePub.subscribe("/p1up", function() {
     if(paddle1.y > 0) {
       paddle1.y_speed = -2.5;
@@ -255,7 +256,7 @@ $(function(){
 
   $('#pong').append(canvas);
   ctx.font="35px Arial";
-  ctx.fillText("Welcome to Trash Talking Pong!", 65, 200)
+  ctx.fillText("Welcome to Trash Talking Pong!", 65, 200);
 
   PrivatePub.subscribe("/start", function() {
     if (p1select && p2select) { 
