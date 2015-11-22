@@ -26,8 +26,8 @@
 default: &default
  adapter: postgresql
  pool: 5
- encoding: unicode
- timeout: 5000
+ encoding: utf8
+ timeout: 30000
 
 development:
  <<: *default
@@ -41,5 +41,6 @@ test:
  database: db/trash-talking-pong_test_test
 
 production:
+ <<: *default
  url: <%= ENV["DATABASE_URL"] %>
- database: db/trash-talking-pong_test
+ database: db/trash-talking-pong
