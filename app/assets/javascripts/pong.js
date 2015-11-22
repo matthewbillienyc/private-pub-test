@@ -50,11 +50,11 @@ $(function(){
     ctx.fillRect(this.x, this.y, this.width, this.height);
 
     if(this.x == 10){
-      ctx.font-size="30px";
-      ctx.fillText(this.score, 150, 10);
+      ctx.font="30px Arial";
+      ctx.fillText(this.score, 150, 30);
     } else{
-      ctx.font-size="30px";
-      ctx.fillText(this.score, 450, 10);
+      ctx.font="30px Arial";
+      ctx.fillText(this.score, 430, 30);
     }
     
   };
