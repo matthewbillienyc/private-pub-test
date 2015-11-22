@@ -45,6 +45,11 @@ $(function(){
     this.score = 0;
   }
 
+  Paddle.prototype.reset = function() {
+    this.y = 180;
+    this.y_speed = 0;
+  }
+
   Paddle.prototype.render = function() {
     ctx.fillStyle = "#FFFFFF";
     ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -90,9 +95,13 @@ $(function(){
     if(this.x < 2) {
       this.reset(300,200);
       paddle2.score++;
+      paddle1.reset();
+      paddle2.reset();
     } else if(this.x > 598) {
       this.reset(300,200);
       paddle1.score++;
+      paddle1.reset();
+      paddle2.reset();
     }
     // Check for not full collision
     else if(this.x + this.x_speed < paddle1.x && this.x > paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
@@ -107,28 +116,52 @@ $(function(){
     }
 
     // Check paddle collision
-    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/2)) {
+    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/4)) {
       this.x_speed = this.x_speed * -1;
-      if(this.y_speed > -5){
+      if(this.y_speed > -10){
+        this.y_speed -= 2;
+      }
+    } 
+    else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/4) && this.y <= paddle1.y+paddle1.height/2) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed > -10){
         this.y_speed -= 1;
       }
     }
-    else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height) {
+    else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height*3/4) {
       this.x_speed = this.x_speed * -1;
-      if(this.y_speed < 5){
+      if(this.y_speed < 10){
         this.y_speed += 1;
       }
     }
-    else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/2)) {
+    else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height*3/4) && this.y <= paddle1.y+paddle1.height) {
       this.x_speed = this.x_speed * -1;
-      if(this.y_speed > -5){
+      if(this.y_speed < 10){
+        this.y_speed += 2;
+      }
+    }
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/4)) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed > -10){
+        this.y_speed -= 2;
+      }
+    }
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/4) && this.y <= paddle2.y+paddle2.height/2) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed > -10){
         this.y_speed -= 1;
       }
     }
-    else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height) {
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height*3/4) {
       this.x_speed = this.x_speed * -1;
-      if(this.y_speed < 5){
+      if(this.y_speed < 10){
         this.y_speed += 1;
+      }
+    }
+    else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height*3/4) && this.y <= paddle2.y+paddle2.height) {
+      this.x_speed = this.x_speed * -1;
+      if(this.y_speed < 10){
+        this.y_speed += 2;
       }
     }
 
