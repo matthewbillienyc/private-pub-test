@@ -127,64 +127,71 @@ $(function(){
       this.y += this.y_speed;
     }
 
-    // Check paddle collision
-    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/4) && this.x_speed < 0) {
+    // Cbeck paddle collision no speed change
+    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height && this.x_speed < 0) {
       this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed > -10){
-        this.y_speed -= 2;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
-      }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/4) && this.y <= paddle1.y+paddle1.height/2 && this.x_speed < 0) {
+    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height && this.x_speed > 0) {
       this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed > -10){
-        this.y_speed -= 1;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
-      }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height*3/4 && this.x_speed < 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed < 10){
-        this.y_speed += 1;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
-      }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height*3/4) && this.y <= paddle1.y+paddle1.height && this.x_speed < 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed < 10){
-        this.y_speed += 2;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
-      }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/4) && this.x_speed > 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed > -10){
-        this.y_speed -= 2;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
-      }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/4) && this.y <= paddle2.y+paddle2.height/2 && this.x_speed > 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed > -10){
-        this.y_speed -= 1;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
-      }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height*3/4 && this.x_speed > 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed < 10){
-        this.y_speed += 1;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
-      }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height*3/4) && this.y <= paddle2.y+paddle2.height && this.x_speed > 0) {
-      this.x_speed = this.x_speed * -1;
-      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
-      if(this.y_speed < 10){
-        this.y_speed += 2;
-        // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
-      }
     }
+
+    // // Check paddle collision + complex speed
+    // if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/4) && this.x_speed < 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed > -10){
+    //     this.y_speed -= 2;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
+    //   }
+    // } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/4) && this.y <= paddle1.y+paddle1.height/2 && this.x_speed < 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed > -10){
+    //     this.y_speed -= 1;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
+    //   }
+    // } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height*3/4 && this.x_speed < 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed < 10){
+    //     this.y_speed += 1;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
+    //   }
+    // } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height*3/4) && this.y <= paddle1.y+paddle1.height && this.x_speed < 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed < 10){
+    //     this.y_speed += 2;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
+    //   }
+    // } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/4) && this.x_speed > 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed > -10){
+    //     this.y_speed -= 2;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
+    //   }
+    // } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/4) && this.y <= paddle2.y+paddle2.height/2 && this.x_speed > 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed > -10){
+    //     this.y_speed -= 1;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
+    //   }
+    // } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height*3/4 && this.x_speed > 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed < 10){
+    //     this.y_speed += 1;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
+    //   }
+    // } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height*3/4) && this.y <= paddle2.y+paddle2.height && this.x_speed > 0) {
+    //   this.x_speed = this.x_speed * -1;
+    //   // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    //   if(this.y_speed < 10){
+    //     this.y_speed += 2;
+    //     // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
+    //   }
+    // }
 
     // Check Wall collision
     if(this.y <=0){
