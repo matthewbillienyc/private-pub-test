@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
     render nothing: true
   end
 
-  def pong
-  end
+  # def pong
+  # end
 
 end
