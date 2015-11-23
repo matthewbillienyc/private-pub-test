@@ -201,6 +201,7 @@ $(function(){
   // });
 
   $('#p1select').on('click', function(){
+    $('#p2select').prop("disabled",true);
     $(document).on('keydown', function(e){
       var code = e.which;
       if(code == 38) {
@@ -224,6 +225,7 @@ $(function(){
   });
 
   $('#p2select').on('click', function(){
+    $('#p1select').prop("disabled",true);
     $(document).on('keydown', function(e){
       e.preventDefault();
       var code = e.which;
@@ -247,11 +249,9 @@ $(function(){
     }
   });
 
-  PrivatePub.subscribe("/space", function() {
-    if(ball.x_speed == 0){
-      ball.x_speed = [-3, 3][Math.floor(Math.random() * 2)];
-      ball.y_speed = Math.floor(Math.random() * (1 + 1 + 1)) - 1;
-    }
+  PrivatePub.subscribe("/space", function(data) {
+    ball.x_speed = data.x;
+    ball.y_speed = data.y;
   });
 
   $('#pong').append(canvas);
