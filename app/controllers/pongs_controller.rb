@@ -41,4 +41,9 @@ class PongsController < ApplicationController
     render nothing: true
   end
 
+  def step
+    PrivatePub.publish_to "/step", {}
+    render nothing: true
+  end
+
 end

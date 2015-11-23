@@ -33,7 +33,11 @@ $(function(){
   var step = function () {
     update();
     render();
-    animate(step);
+    $.post("/step", function(){});
+    PrivatePub.subscribe("/step", function() {
+      animate(step);
+    });
+      
   };
 
   function Paddle(x, y, width, height) {
