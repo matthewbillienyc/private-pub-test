@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require pong
 //= require messages
-//= require private_pub
+//= require faye
 //= require united
 //= require_tree .
 
