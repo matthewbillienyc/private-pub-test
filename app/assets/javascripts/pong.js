@@ -208,13 +208,13 @@ $(function(){
   
   PrivatePub.subscribe("/p1up", function() {
     if(paddle1.y > 0) {
-      paddle1.y_speed = -2.5;
+      paddle1.y_speed = -10;
     }
   });
 
   PrivatePub.subscribe("/p1down", function() {
     if(paddle1.y < 350) {
-      paddle1.y_speed = 2.5;
+      paddle1.y_speed = 10;
     }
   });
 
@@ -233,13 +233,13 @@ $(function(){
 
   PrivatePub.subscribe("/p2up", function() {
     if(paddle2.y > 0) {
-      paddle2.y_speed = -2.5;
+      paddle2.y_speed = -10;
     }
   });
 
   PrivatePub.subscribe("/p2down", function() {
     if(paddle2.y < 350) {
-      paddle2.y_speed = 2.5;
+      paddle2.y_speed = 10;
     }
   });
 
