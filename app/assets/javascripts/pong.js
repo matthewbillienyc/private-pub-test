@@ -5,7 +5,7 @@ $(function(){
   // var animate = window.requestAnimationFrame ||
   //   window.webkitRequestAnimationFrame ||
   //   window.mozRequestAnimationFrame ||
-  var animate =  function(callback) { window.setTimeout(callback, 1000/30) };
+  var animate =  function(callback) { window.setTimeout(callback, 1000/60) };
   var canvas =  document.createElement('canvas');
   var width = 600;
   var height = 400;
@@ -117,97 +117,99 @@ $(function(){
     }
     // Check for not full collision
     else if(this.x + this.x_speed < paddle1.x && this.x > paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
-      // this.x = paddle1.x+10;
-      this.collision(paddle1.x+10, this.y, this.x_speed, this.y_speed);
+      this.x = paddle1.x+10;
+      // this.collision(paddle1.x+10, this.y, this.x_speed, this.y_speed);
     } else if(this.x + this.x_speed > paddle2.x && this.x < paddle2.x && this.x_speed > 0 && this.y >= paddle2.y && this.y <= paddle2.y+paddle2.height) {
-      // this.x = paddle2.x-5;
-      this.collision(paddle2.x-5, this.y, this.x_speed, this.y_speed);
+      this.x = paddle2.x-5;
+      // this.collision(paddle2.x-5, this.y, this.x_speed, this.y_speed);
     } else {
       this.x += this.x_speed;
       this.y += this.y_speed;
     }
 
     // Check paddle collision
-    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/4)) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    if(this.x-10 == paddle1.x && this.y >= paddle1.y && this.y <= paddle1.y+(paddle1.height/4) && this.x_speed < 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed > -10){
-        // this.y_speed -= 2;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
+        this.y_speed -= 2;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
       }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/4) && this.y <= paddle1.y+paddle1.height/2) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/4) && this.y <= paddle1.y+paddle1.height/2 && this.x_speed < 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed > -10){
-        // this.y_speed -= 1;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
+        this.y_speed -= 1;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
       }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height*3/4) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height/2) && this.y <= paddle1.y+paddle1.height*3/4 && this.x_speed < 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed < 10){
-        // this.y_speed += 1;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
+        this.y_speed += 1;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
       }
-    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height*3/4) && this.y <= paddle1.y+paddle1.height) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if(this.x-10 == paddle1.x && this.y >= paddle1.y+(paddle1.height*3/4) && this.y <= paddle1.y+paddle1.height && this.x_speed < 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed < 10){
-        // this.y_speed += 2;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
+        this.y_speed += 2;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
       }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/4)) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y && this.y <= paddle2.y+(paddle2.height/4) && this.x_speed > 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed > -10){
-        // this.y_speed -= 2;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
+        this.y_speed -= 2;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed-2);
       }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/4) && this.y <= paddle2.y+paddle2.height/2) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/4) && this.y <= paddle2.y+paddle2.height/2 && this.x_speed > 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed > -10){
-        // this.y_speed -= 1;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
+        this.y_speed -= 1;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed-1);
       }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height*3/4) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height/2) && this.y <= paddle2.y+paddle2.height*3/4 && this.x_speed > 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed < 10){
-        // this.y_speed += 1;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
+        this.y_speed += 1;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed+1);
       }
-    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height*3/4) && this.y <= paddle2.y+paddle2.height) {
-      // this.x_speed = this.x_speed * -1;
-      this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
+    } else if (this.x+5 == paddle2.x && this.y >= paddle2.y+(paddle2.height*3/4) && this.y <= paddle2.y+paddle2.height && this.x_speed > 0) {
+      this.x_speed = this.x_speed * -1;
+      // this.collision(this.x, this.y, this.x_speed * -1, this.y_speed);
       if(this.y_speed < 10){
-        // this.y_speed += 2;
-        this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
+        this.y_speed += 2;
+        // this.collision(this.x, this.y, this.x_speed, this.y_speed+2);
       }
     }
 
     // Check Wall collision
     if(this.y <=0){
-      // this.y = 0;
-      // this.y_speed = this.y_speed * -1;
-      this.collision(this.x, 0, this.x_speed, this.y_speed * -1);
+      this.y = 0;
+      this.y_speed = this.y_speed * -1;
+      // this.collision(this.x, 0, this.x_speed, this.y_speed * -1);
     } else if(this.y >= 395){
-      // this.y = 395;
-      // this.y_speed = this.y_speed * -1;
-      this.collision(this.x, 395, this.x_speed, this.y_speed * -1);
+      this.y = 395;
+      this.y_speed = this.y_speed * -1;
+      // this.collision(this.x, 395, this.x_speed, this.y_speed * -1);
     }
     // console.log(this.y_speed);
   };
 
-  Ball.prototype.collision = function(ballX, ballY, ballXSpeed, ballYSpeed) {
-    $.post("/collision", function({ballX: ballX, ballY: ballY, ballXSpeed: ballXSpeed, ballYSpeed: ballYSpeed}){});
-    PrivatePub.subscribe("/collision", function(data) {
-      ball.x = data.ballX;
-      ball.y = data.ballY;
-      ball.x_speed = data.ballXSpeed;
-      ball.y_speed = data.ballYSpeed;
-    });
-  } 
+  // Ball.prototype.collision = function(ballX, ballY, ballXSpeed, ballYSpeed) {
+  //   $.post("/collision", {ballX: ballX, ballY: ballY, ballXSpeed: ballXSpeed, ballYSpeed: ballYSpeed});
+  // } 
+
+  // PrivatePub.subscribe("/collision", function(data) {
+  //   ball.x = Number(data.ballX);
+  //   ball.y = Number(data.ballY);
+  //   ball.x_speed = Number(data.ballXSpeed);
+  //   ball.y_speed = Number(data.ballYSpeed);
+  //   debugger;
+  // });
 
   $('#message_content, #player-name').on('keydown', function(e) {
     e.stopPropagation();

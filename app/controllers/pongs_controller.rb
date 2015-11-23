@@ -51,8 +51,8 @@ class PongsController < ApplicationController
     render nothing: true
   end
 
-  def collision
-    PrivatePub.publish_to "/collision", {}
-    render nothing: true
-  end
+  # def collision
+  #   PrivatePub.publish_to "/collision", {ballX: params["ballX"], ballY: params["ballY"], ballXSpeed: params["ballXSpeed"], ballYSpeed: params["ballYSpeed"]}
+  #   render nothing: true
+  # end
 end
