@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
 
   def index
+    render 'messages/index.html.erb'
   end
 
   def create
