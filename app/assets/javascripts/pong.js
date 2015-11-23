@@ -100,20 +100,20 @@ $(function(){
   Ball.prototype.update = function() {
     if(this.x < 2) {
       this.reset(300,200);
-      $.post("/reset", function(){});
-      PrivatePub.subscribe("/reset", function() {
+      // $.post("/reset", function(){});
+      // PrivatePub.subscribe("/reset", function() {
         paddle2.score++;
         paddle1.reset();
         paddle2.reset();
-      });
+      // });
     } else if(this.x > 598) {
       this.reset(300,200);
-      $.post("/reset", function(){});
-      PrivatePub.subscribe("/reset", function() {
+      // $.post("/reset", function(){});
+      // PrivatePub.subscribe("/reset", function() {
         paddle1.score++;
         paddle1.reset();
         paddle2.reset();
-      });
+      // });
     }
     // Check for not full collision
     else if(this.x + this.x_speed < paddle1.x && this.x > paddle1.x && this.x_speed < 0 && this.y >= paddle1.y && this.y <= paddle1.y+paddle1.height) {
