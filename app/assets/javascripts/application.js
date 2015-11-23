@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require private_pub
+//= require united
 //= require pong
 //= require messages
-//= require faye
-//= require united
 //= require_tree .
 

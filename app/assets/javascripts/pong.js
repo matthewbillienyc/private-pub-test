@@ -174,7 +174,7 @@ $(function(){
       this.y = 395;
       this.y_speed = this.y_speed * -1;
     }
-    console.log(this.y_speed);
+    // console.log(this.y_speed);
   };
 
   $('#message_content, #player-name').on('keydown', function(e) {
