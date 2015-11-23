@@ -46,4 +46,13 @@ class PongsController < ApplicationController
     render nothing: true
   end
 
+  def reset
+    PrivatePub.publish_to "/reset", {}
+    render nothing: true
+  end
+
+  def collision
+    PrivatePub.publish_to "/collision", {}
+    render nothing: true
+  end
 end

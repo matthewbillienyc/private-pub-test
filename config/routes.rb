@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   post '/p1select' => 'pongs#p1select'
   post '/p2select' => 'pongs#p2select'
   post '/step' => 'pongs#step'
+  post '/reset' => 'pongs#reset'
 end
