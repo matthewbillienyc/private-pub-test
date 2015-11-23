@@ -20,9 +20,9 @@ class PongsController < ApplicationController
   end
 
   def space
-    x = [-3, 3].sample
+    x = [-6, 6].sample
     # y = [-1,0,1].sample
-    y = [-1, 1].sample
+    y = [-2, 2].sample
     PrivatePub.publish_to "/space", {:x => x, :y => y}
     render nothing: true
   end
