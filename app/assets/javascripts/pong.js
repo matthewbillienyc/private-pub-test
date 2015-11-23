@@ -196,7 +196,7 @@ $(function(){
 
   $('#p1select').on('click', function(){
     $('#p2select').prop("disabled",true);
-    $(document).on('keydown', function(e){
+    $(document).on('keyup', function(e){
       var code = e.which;
       if(code == 38) {
         $.post("/p1up", function(){});
@@ -208,19 +208,19 @@ $(function(){
   
   PrivatePub.subscribe("/p1up", function() {
     if(paddle1.y > 0) {
-      paddle1.y_speed = -10;
+      paddle1.y_speed = -20;
     }
   });
 
   PrivatePub.subscribe("/p1down", function() {
     if(paddle1.y < 350) {
-      paddle1.y_speed = 10;
+      paddle1.y_speed = 20;
     }
   });
 
   $('#p2select').on('click', function(){
     $('#p1select').prop("disabled",true);
-    $(document).on('keydown', function(e){
+    $(document).on('keyup', function(e){
       e.preventDefault();
       var code = e.which;
       if(code == 38) {
@@ -233,13 +233,13 @@ $(function(){
 
   PrivatePub.subscribe("/p2up", function() {
     if(paddle2.y > 0) {
-      paddle2.y_speed = -10;
+      paddle2.y_speed = -20;
     }
   });
 
   PrivatePub.subscribe("/p2down", function() {
     if(paddle2.y < 350) {
-      paddle2.y_speed = 10;
+      paddle2.y_speed = 20;
     }
   });
 
