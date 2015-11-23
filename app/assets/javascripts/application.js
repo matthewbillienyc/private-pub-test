@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require pong
+//= require messages
 //= require private_pub
 //= require united
-//= require_directory .
+//= require_tree .
 
