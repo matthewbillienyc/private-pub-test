@@ -33,11 +33,7 @@ $(function(){
   var step = function () {
     update();
     render();
-    // $.post("/step", function(){});
-    // PrivatePub.subscribe("/step", function() {
-      animate(step);
-    // });
-      
+    animate(step); 
   };
 
   function Paddle(x, y, width, height) {
@@ -203,7 +199,6 @@ $(function(){
       this.y_speed = this.y_speed * -1;
       // this.collision(this.x, 395, this.x_speed, this.y_speed * -1);
     }
-    // console.log(this.y_speed);
   };
 
   // Ball.prototype.collision = function(ballX, ballY, ballXSpeed, ballYSpeed) {
@@ -217,40 +212,37 @@ $(function(){
   //   ball.y_speed = Number(data.ballYSpeed);
   //   debugger;
   // });
+  function enableLaunchBall() {
+    $(document).on('keydown', function(e){
+      e.preventDefault();
+      var code = e.which;
+      if(code == 32) {
+        $.post("/space", function(){});
+      }
+    });
+  }
 
-  $('#message_content, #player-name').on('keydown', function(e) {
-    e.stopPropagation();
-  });
+  function removeKeydownOnGameStart() {
+    $('#message_content, #player-name').on('keydown', function(e) {
+      e.stopPropagation();
+    });
+  }
 
-  // $(document).on('keydown', function(e){
-  //   var code = e.which;
-  //   if(code == 87) {
-  //     paddle1.y_speed = -2;
-  //   } else if(code == 83) {
-  //     paddle1.y_speed = 2;
-  //   }
-  // });
-
-  // $(document).on('keydown', function(e){
-  //   e.preventDefault();
-  //   var code = e.which;
-  //   if(code == 38) {
-  //     paddle2.y_speed = -2;
-  //   } else if(code == 40) {
-  //     paddle2.y_speed = 2;
-  //   }
-  // });
+  function assignPaddle(paddle) {
+    $(document).on('keyup', function(e){
+      e.preventDefault();
+      var code = e.which;
+      if(code == 38) {
+        $.post("/" + paddle + "up");
+      } else if(code == 40) {
+        $.post("/" + paddle + "down");
+      }
+    });
+  }
 
   $('#p1select').on('click', function(){
     $('#p2select').prop("disabled",true);
-    $(document).on('keyup', function(e){
-      var code = e.which;
-      if(code == 38) {
-        $.post("/p1up", function(){});
-      } else if(code == 40) {
-        $.post("/p1down", function(){});
-      }
-    });
+    assignPaddle('p1');
   });
   
   PrivatePub.subscribe("/p1up", function() {
@@ -267,15 +259,7 @@ $(function(){
 
   $('#p2select').on('click', function(){
     $('#p1select').prop("disabled",true);
-    $(document).on('keyup', function(e){
-      e.preventDefault();
-      var code = e.which;
-      if(code == 38) {
-        $.post("/p2up", function(){});
-      } else if(code == 40) {
-        $.post("/p2down", function(){});
-      }
-    });
+    assignPaddle('p2');
   });
 
   PrivatePub.subscribe("/p2up", function() {
@@ -295,19 +279,10 @@ $(function(){
     ball.y_speed = data.y;
   });
 
-  $('#pong').append(canvas);
-  ctx.font="35px Arial";
-  ctx.fillText("Welcome to Trash Talking Pong!", 65, 200);
-
   PrivatePub.subscribe("/start", function() {
     if (p1select && p2select) { 
-      $(document).on('keydown', function(e){
-        e.preventDefault();
-        var code = e.which;
-        if(code == 32) {
-          $.post("/space", function(){});
-        }
-      });
+      removeKeydownOnGameStart();
+      enableLaunchBall();
       animate(step);
     }
   });
@@ -322,6 +297,10 @@ $(function(){
     p2select = true;
   });
 
+  // Initial Pong Screen
+  $('#pong').append(canvas);
+  ctx.font="35px Arial";
+  ctx.fillText("Welcome to Trash Talking Pong!", 65, 200);
 })
 
 
